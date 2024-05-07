@@ -17,7 +17,8 @@ for j in range(len(word)):
 
 print(blanks)
 
-while "_" in blanks:
+end_game = False
+while not end_game:
     user_guess = input(print("Guess a letter: "))
 
     for i in range(len(word)):
@@ -26,5 +27,7 @@ while "_" in blanks:
     
     print(blanks)
 
-print("You win!")
+    if "_" not in blanks:
+        end_game = True
+        print("You win!")
 
