@@ -1,4 +1,5 @@
 import random
+from word_list import words
 
 stages = ['''
   +---+
@@ -56,9 +57,8 @@ stages = ['''
       |
 =========
 ''']
-word_list = ["aardvark", "baboon", "camel"]
 
-word = word_list[random.randint(0, 2)]
+word = random.choice(words)
 print("The word is " + word)
 
 blanks = ["_" for _ in range(len(word))]
