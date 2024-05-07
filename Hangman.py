@@ -1,33 +1,97 @@
-#Step 1 
 import random
+
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
 word_list = ["aardvark", "baboon", "camel"]
 
-#TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
-
-#TODO-2 - Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
-
-#TODO-3 - Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
-
-word = word_list[random.randint(0,2)]
+word = word_list[random.randint(0, 2)]
 print("The word is " + word)
 
-blanks = []
-for j in range(len(word)):
-    blanks = blanks + ["_"]
-
+blanks = ["_" for _ in range(len(word))]
 print(blanks)
 
 end_game = False
-while not end_game:
-    user_guess = input(print("Guess a letter: "))
+print("Let's play Hangman. You have 6 lives.")
+lives = 6
+last_stage_printed = False
 
+while not end_game and lives > 0:
+    user_guess = input("Guess a letter: ").lower()
+
+    correct_guess = False
     for i in range(len(word)):
         if user_guess == word[i]:
             blanks[i] = user_guess
-    
+            correct_guess = True
+
+    if correct_guess:
+        if not last_stage_printed:
+            print(stages[-1])
+            last_stage_printed = True
+    else:
+        lives -= 1
+        print("Incorrect guess. You have " + str(lives) + " lives left.")
+        print(stages[lives])
+
     print(blanks)
 
     if "_" not in blanks:
         end_game = True
         print("You win!")
 
+if not end_game:
+    print("You lose. The word was " + word)
